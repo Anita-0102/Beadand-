@@ -2,6 +2,12 @@ from tkinter import *
 from tkinter import messagebox
 from Belepes_Modul import *
 from Jelszo import  *
+from AAnimal_Modul import *
+
+
+#felhasznalónév= Admin
+#jelszó=Admin123
+
 
 def belepes():
     def ok_gomb_kezelese():
@@ -10,17 +16,14 @@ def belepes():
         if f_nev.get() == "" or f_jelszo.get() == "":
             messagebox.showinfo("Hiba", "Valamelyik mező üres", parent=be_ablak)
         elif " " in f_nev.get():
-            messagebox.showinfo("Hiba", "Szóközt használt az emailben!", parent=be_ablak)
-        elif "@" not in f_nev.get():
-            messagebox.showinfo("Hiba", "Hiánzik a @ jel", parent=be_ablak)
-        elif "." not in f_nev.get():
-            messagebox.showinfo("Hiba", "Hiánzik a . jel", parent=be_ablak)
+            messagebox.showinfo("Hiba", "Szóközt használt a felhasználónévben!", parent=be_ablak)
+
+        elif dolgozo.felhasznalo_ell():
+            messagebox.showinfo("Belépés", "Sikeres belépés!")
+        elif dolgozo.felhasznalo_ell():
+            messagebox.showinfo("Belépés", "Belépés megtagadva!")
         else:
 
-            if dolgozo.felhasznalo_ell():
-                messagebox.showinfo("Belépés", "Sikeres belépés!")
-            else:
-                messagebox.showinfo("Belépés", "Belépés megtagadva!")
             be_ablak.destroy()
 
 
@@ -32,7 +35,7 @@ def belepes():
     be_ablak.title("Állatorvosi nyilvántartás beléptető oldal")
     be_ablak.geometry("400x200")
 
-    f_nev_cimke = Label(be_ablak, text="Felhasználó neve (email):")
+    f_nev_cimke = Label(be_ablak, text="Felhasználó név:")
     f_jelszo_cimke = Label(be_ablak, text="Jelszó:")
 
     f_nev = StringVar()
@@ -64,11 +67,7 @@ def regisztracio():
         elif f_jelszo.get() != f_jelszo2.get():
             messagebox.showinfo("Hiba", "Nem azonosak a jelszavak", parent=reg_ablak)
         elif " " in f_nev.get():
-            messagebox.showinfo("Hiba", "Szóközt használt az emailben!", parent=reg_ablak)
-        elif "@" not in f_nev.get():
-            messagebox.showinfo("Hiba", "Hiánzik a @ jel", parent=reg_ablak)
-        elif "." not in f_nev.get():
-            messagebox.showinfo("Hiba", "Hiánzik a . jel", parent=reg_ablak)
+            messagebox.showinfo("Hiba", "Szóközt használt a felhasználónévben!", parent=reg_ablak)
         elif not dolgozo.jelszo_vizsgalata(8):
             messagebox.showinfo("Hiba", "Nem megfelelő a jelszó!", parent=reg_ablak)
         else:
@@ -83,7 +82,7 @@ def regisztracio():
     reg_ablak = Tk()
     reg_ablak.title("Regisztráció")
 
-    f_nev_cimke = Label(reg_ablak, text="Felhasználó neve (email):")
+    f_nev_cimke = Label(reg_ablak, text="Felhasználó név:")
     f_jelszo_cimke =Label(reg_ablak, text="Jelszó:")
     f_jelszo2_cimke = Label(reg_ablak, text="Jelszó újra:")
 
@@ -109,23 +108,36 @@ def regisztracio():
     f_jelszo2_be.grid(row=2, column=1)
     ok_gomb.grid(row=3, column=1, pady=15, columnspan=2)
 
-    f_nev=StringVar()
-    f_nev.set("")
-    f_nev_be=Entry(reg_ablak, textvariable=f_nev,width=20)
-
-
-
 
     reg_ablak.mainloop()
 
 def uj_allat():
-    pass
+    window_ablak = Tk()
+    window_ablak.title("Állat rögzítése")
+    window_ablak.geometry("400x200")
+    """Új állat hozzáadása"""
+    animal.create_animal_form(window_ablak)
+    window_ablak=Tk()
+    window_ablak.destroy()
+
 def allatok_lista():
-    pass
+    new_window = Tk()
+    new_window.geometry("400x200")
+    new_window.title("Állatok Listája")
+    """Állatok listázása"""
+    szamlalo=1
+    for i in animal.animals:
+        tk.Label(new_window,
+                    text=f"{szamlalo}. {i['nev']} - {i['fajta']}- {i['gazda']}- {i['elerhetoseg']}").pack()
+        szamlalo +=1
+
 def uj_kezeles():
     pass
 
+animal = AAnimal()
 dolgozo = Felhasznalo()
+
+
 
 belepes()
 
@@ -137,11 +149,7 @@ app.geometry("600x400")
 
 menulista = Menu(app)
 
-hozzaferes = Menu(menulista)
-hozzaferes.add_command(label="Belépés", command=belepes)
-hozzaferes.add_command(label="Regisztráció", command=regisztracio)
-hozzaferes.add_command(label="Kilépés", command=app.destroy)
-menulista.add_cascade(label="Hozzáférés", menu=hozzaferes)
+
 
 
 allatok = Menu(menulista)
@@ -149,9 +157,7 @@ allatok.add_command(label="Új állat hozzáadása", command=uj_allat)
 allatok.add_command(label="Állatok listázása", command=allatok_lista)
 menulista.add_cascade(label="Állatok", menu=allatok)
 
-kezelesek = Menu(menulista)
-kezelesek.add_command(label="Új kezelés hozzáadása", command=uj_kezeles)
-menulista.add_cascade(label="Kezelések", menu=kezelesek)
+
 
 
 app.config(menu=menulista)

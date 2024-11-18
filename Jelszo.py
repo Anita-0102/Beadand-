@@ -1,7 +1,7 @@
 class Jelszo:
     felhasznalo_jelszava = "nincs"
 
-    def __init__(self, felhasznalo_jelszava = "valamiJelszo123"):
+    def __init__(self, felhasznalo_jelszava = "Admin123"):
         self.felhasznalo_jelszava = felhasznalo_jelszava
 
     def jelszo_bekerese2(self,hosszusag):
@@ -97,7 +97,7 @@ class Jelszo:
         ok = False
         proba = 0
         while True:
-            jelszo2 = input("Kérem ismét a jelszót: ")
+            jelszo2 = input("Add meg újra  e jelszót!: ")
             if self.felhasznalo_jelszava == jelszo2:
                 ok = True
                 break
@@ -110,22 +110,18 @@ class Jelszo:
 
 
 class Felhasznalo(Jelszo):
-    felhasznalo_neve = "Valaki@valami.hu"
+    felhasznalo_neve = "Admin"
 
     def __init__(self, felhasznalo_jelszava = "ÚjJelszó2"):
         super().__init__(felhasznalo_jelszava)
 
     def felhasznalonev(self):
-        _felhasznalo_neve = input("Kérem a felhasználói nevet (email): ")
-        while " " in _felhasznalo_neve or "@" not in _felhasznalo_neve or "." not in _felhasznalo_neve:
-            print("Érvénytelen emailformátum!")
+        _felhasznalo_neve = input("Kérem adja meg a felhasználó nevet ")
+        while " " in _felhasznalo_neve:
+            print("Érvénytelen felhasználónév!")
             if " " in _felhasznalo_neve:
-                print("Szóközt használt az emailben!")
-            if "@" not in _felhasznalo_neve:
-                print("Hiánzik a @ jel")
-            if "." not in _felhasznalo_neve:
-                print("Hiánzik a . jel")
-            _felhasznalo_neve = input("Kérem a felhasználói nevet (email): ")
+                print("Szóközt használtál a felhasználó névben!")
+            _felhasznalo_neve = input("Kérem a felhasználó nevet:")
         self.felhasznalo_neve = _felhasznalo_neve
 
     def rogtites(self):

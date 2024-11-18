@@ -1,15 +1,11 @@
 
 def felhasznalonev():
-    _felhasznalo_neve = input("Kérem a felhasználói nevet (email): ")
-    while " " in _felhasznalo_neve or "@" not in _felhasznalo_neve or "." not in _felhasznalo_neve:
-        print("Érvénytelen emailformátum!")
+    _felhasznalo_neve = input("Kérem adja meg a felhasználó nevet ")
+    while " " in _felhasznalo_neve:
+        print("Érvénytelen felhasználónév!")
         if " " in _felhasznalo_neve:
-            print("Szóközt használt az emailben!")
-        if "@" not in _felhasznalo_neve:
-            print("Hiánzik a @ jel")
-        if "." not in _felhasznalo_neve:
-            print("Hiánzik a . jel")
-        _felhasznalo_neve = input("Kérem a felhasználói nevet (email): ")
+            print("Szóközt használtál a felhasználó névben!")
+        _felhasznalo_neve = input("Kérem a felhasználó nevet:")
     return _felhasznalo_neve
 
 
@@ -102,6 +98,6 @@ def beleptetes():
         print("Nem vagy regisztrált felhasználó!")
     else:
         if jelszoellenorzes(jelszo):
-            print("Beléphetsz!")
+            print("Sikeres belépés!")
         else:
-            print("Megtagadjuk a belépést!")
+            print("Belépés megtagadva!")
