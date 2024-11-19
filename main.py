@@ -17,13 +17,13 @@ def belepes():
             messagebox.showinfo("Hiba", "Valamelyik mező üres", parent=be_ablak)
         elif " " in f_nev.get():
             messagebox.showinfo("Hiba", "Szóközt használt a felhasználónévben!", parent=be_ablak)
-
         elif dolgozo.felhasznalo_ell():
             messagebox.showinfo("Belépés", "Sikeres belépés!")
         elif dolgozo.felhasznalo_ell():
             messagebox.showinfo("Belépés", "Belépés megtagadva!")
+        elif not dolgozo.jelszo_vizsgalata(8):
+            messagebox.showinfo("Hiba", "Nem megfelelő a jelszó!", parent=be_ablak)
         else:
-
             be_ablak.destroy()
 
 
@@ -62,7 +62,7 @@ def regisztracio():
     def ok_gomb_kezelese():
         dolgozo.felhasznalo_neve = f_nev.get()
         dolgozo.felhasznalo_jelszava = f_jelszo.get()
-        if f_nev.get() == "" or f_jelszo.get() == "" or f_jelszo2.get() == "":
+        if f_nev.get() == "" or f_jelszo.get() == "" :
             messagebox.showinfo("Hiba", "Valamelyik mező üres", parent=reg_ablak)
         elif f_jelszo.get() != f_jelszo2.get():
             messagebox.showinfo("Hiba", "Nem azonosak a jelszavak", parent=reg_ablak)
@@ -137,32 +137,20 @@ def uj_kezeles():
 animal = AAnimal()
 dolgozo = Felhasznalo()
 
-
-
 belepes()
 
 app = Tk()
 app.title("Állatorvosi nyilvántartás")
 app.geometry("600x400")
 
-
-
 menulista = Menu(app)
-
-
-
 
 allatok = Menu(menulista)
 allatok.add_command(label="Új állat hozzáadása", command=uj_allat)
 allatok.add_command(label="Állatok listázása", command=allatok_lista)
 menulista.add_cascade(label="Állatok", menu=allatok)
 
-
-
-
 app.config(menu=menulista)
-
-
 
 # Main program
 

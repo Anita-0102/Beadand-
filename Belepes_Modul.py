@@ -78,11 +78,11 @@ def regisztracio():
 def beleptetes():
     def felhasznalo():
         jelszo = False
-        email = felhasznalonev()
+        nev = felhasznalonev()
         with open('dolgozok.txt', 'r', encoding='utf-8') as fajl:
             for sor in fajl:
                 felhasznaloi_adatok = sor.strip().split(";")
-                if felhasznaloi_adatok[0] == email:
+                if felhasznaloi_adatok[0] == nev:
                     jelszo = felhasznaloi_adatok[1]
                     break
         return jelszo

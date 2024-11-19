@@ -4,7 +4,7 @@ class AAnimal:
         self.animals = []
 
     def create_animal_form(self, window):
-        """Űrlap új állat hozzáadására"""
+
         tk.Label(window, text="Állat neve:").grid(row=0, column=0)
         tk.Label(window, text="Fajta:").grid(row=1, column=0)
         tk.Label(window, text="Gazda neve:").grid(row=2, column=0)
@@ -35,6 +35,6 @@ class AAnimal:
         save_button.grid(row=4, column=1, pady=15, columnspan=2)
 
     def show_animals(self, new_window):
-        """Állatok listájának megjelenítése egy új ablakban"""
+        """Állatok listázása"""
         for i, animal in enumerate(self.animals):
             tk.Label(new_window, text=f"{i+1}. {animal['nev']} - {animal['fajta']}- {animal['gazda']}- {animal['elerhetoseg']}").pack()
